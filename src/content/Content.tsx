@@ -1,12 +1,13 @@
-import { Counter } from '../app/features/counter';
+function sendSelectedTextLength() {
+  const selectedText = window.getSelection()?.toString();
+  if (selectedText) {
+    const message = {
+      type: 'textSelected',
+      textLength: selectedText.length,
+    };
+    chrome.runtime.sendMessage(message);
+  }
+}
 
-const Content = () => {
-  return (
-    <div className="fixed z-[999] bottom-2 right-2 shadow-xl border-[1px] bg-white bg-opacity-10">
-      <div className="flex justify-center mt-2 text-base">Content Counter</div>
-      <Counter />
-    </div>
-  );
-};
-
-export default Content;
+document.addEventListener('mouseup', sendSelectedTextLength);
+document.addEventListener('keyup', sendSelectedTextLength);
